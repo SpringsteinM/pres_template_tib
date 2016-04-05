@@ -1,0 +1,57 @@
+\mode<presentation>
+
+% Frame title
+% \defbeamertemplate*{frametitle}{fh}[1][]
+% {
+% \vskip1cm%
+%   \begin{beamercolorbox}[wd=\paperwidth,ht=1.2cm]{frametitle}
+%   \begin{tikzpicture}
+%   \useasboundingbox[fill=white](0,0) rectangle(\the\paperwidth,1.2);
+%   \fill[orange] (0,0) rectangle(2.95,1.2);
+%   \fill[blue!50!cyan!80] (3.05,0) rectangle(\the\paperwidth,1.2);
+%    \ifx\insertframesubtitle\@empty%
+%       {\node[anchor=west, white,font=\large] at (3.2,0.61){\insertframetitle};}
+%       \else%
+%       {\node[anchor= west, white,font=\large] at (3.2,0.81){\insertframetitle};%
+%        \node[anchor= west, white,font=\small] at (3.2,0.41){\insertframesubtitle};}%
+%       \fi
+%   \end{tikzpicture}
+%   \end{beamercolorbox}
+% }
+
+%Frame title
+\defbeamertemplate*{frametitle}{fh}[1][]
+{
+%\vspace*{-10pt}
+  \begin{beamercolorbox}[wd=\paperwidth]{frametitle}
+
+    \begin{tikzpicture}
+      \useasboundingbox(0,0) rectangle(\the\paperwidth,1.1);
+      \node[anchor=north west,font=\large, text width=\the\paperwidth*0.5] at (0,0.4){\usebeamerfont{frametitle}\insertframetitle};
+    \end{tikzpicture}
+  \end{beamercolorbox}
+}
+
+
+\defbeamertemplate*{footline}{fh}[1][]
+{
+  \begin{beamercolorbox}[wd=\paperwidth,ht=25pt]{footline}
+  %
+    \begin{tikzpicture}
+    \ifnum\thepage>1\relax%
+
+      \useasboundingbox(0,0) rectangle(\the\paperwidth,25pt);
+      \node(navigation) at (0,25pt)[anchor=north west]{\insertnavigation{0.75\paperwidth}};
+      \node(navigation) at (\paperwidth,25pt)[anchor=north east]{Folie: \insertframenumber /\inserttotalframenumber};
+
+      %\node(section) at (0,0)[anchor=north west, outer xsep=10pt, outer ysep=5pt,black]{\Large\insertsection};
+
+      \draw[line width=0.02cm,fhColor,-] (0,25pt)  -- ++(\paperwidth,0);
+
+    \fi
+    \end{tikzpicture}
+  \end{beamercolorbox}
+}
+
+
+\mode<all>

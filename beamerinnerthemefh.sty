@@ -1,0 +1,44 @@
+\mode<presentation>
+
+\setbeamertemplate{background}{
+  \begin{tikzpicture}
+
+
+  \useasboundingbox (0,0) rectangle(\the\paperwidth,\the\paperheight);
+  \newcommand\lineDistance{0.6}
+  \newcommand\lineDistanceRight{0.02}
+
+  \pgfmathsetmacro{\lineDistanceTwo}{1-\lineDistance-\lineDistanceRight}
+  \pgfmathsetmacro{\logoWidht}{\paperwidth*(1-\lineDistance)*1.0}
+
+  \node(title) at (0,\the\paperheight-15)[anchor=south west]{ \begin{beamercolorbox}{headline}\usebeamerfont{headline}\inserttitle\end{beamercolorbox}};
+
+  %\node(section) at (0,0)[anchor=north west, outer xsep=10pt, outer ysep=5pt,black]{\Large\insertsection};
+
+  \draw[line width=0.02cm,fhColor,-] (0,\the\paperheight-15)  -- ++(\paperwidth*\lineDistance,0) -- ++(\paperwidth*\lineDistanceRight,\paperwidth*\lineDistanceRight*1.6) -- ++(\paperwidth*\lineDistanceTwo,0) node (re){};
+  %
+  \node(logo) at (re.north)[anchor=north east, inner sep=5pt]{\includegraphics[width=\logoWidht pt]{fh/logo-eah-2012}};
+  
+  \end{tikzpicture}
+}
+
+% Title page
+% \defbeamertemplate*{title page}{fh}[1][]
+% {
+%   %   \vskip6cm%
+%   %    \begin{beamercolorbox}[wd=12cm,leftskip=3cm,sep=8pt,#1]{title page header}
+%   %      \usebeamerfont{title}\inserttitle\par%
+%   %    \end{beamercolorbox}%
+%   %    \vskip0.75cm%
+%   %    \begin{beamercolorbox}[wd=12cm,leftskip=3cm,#1]{author}
+%   %      \usebeamerfont{author}\insertauthor%
+%   %    \end{beamercolorbox}
+%   %     \vskip0.2cm%
+%   %    \begin{beamercolorbox}[wd=12cm,leftskip=3cm,#1]{date}
+%   %      \usebeamerfont{author}\insertdate%
+%   %    \end{beamercolorbox}
+%   %  \vfill
+% }
+
+\mode
+<all>

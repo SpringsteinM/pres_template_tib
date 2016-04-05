@@ -1,0 +1,34 @@
+\mode<presentation>
+
+% Requirement
+\RequirePackage{tikz}
+
+% Settings
+\useinnertheme{fh}
+\useoutertheme{fh}
+\usecolortheme{fh}
+
+
+\setbeamertemplate{section in toc}[sections numbered]
+\setbeamertemplate{subsection in toc}[subsections numbered]
+
+\setbeamertemplate{navigation symbols}{}
+
+%Schriftart setzten
+\usefonttheme{professionalfonts}
+\setbeamerfont{title}{size=\Large, series=\bfseries}
+\setbeamerfont{subtitle}{series=\mdseries}
+
+
+\setbeamertemplate{caption}{\footnotesize Abb.: \usebeamercolor*{text}\insertcaption}
+
+\makeatletter
+\setbeamertemplate{block begin}
+{
+  \begin{beamerboxesrounded}[shadow=true]{\insertblocktitle}
+
+}
+\setbeamertemplate{block end}{ \end{beamerboxesrounded}}
+\makeatother
+
+\mode<all>
