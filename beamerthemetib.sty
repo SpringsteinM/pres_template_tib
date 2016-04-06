@@ -124,41 +124,35 @@
 	\end{tikzpicture}
 }
 
+% Frame title continuations
+\defbeamertemplate*{frametitle continuation}{TIB}{\insertcontinuationcountroman}
 
-% \setbeamertemplate{frametitle}
-% {%
-%
-%   \begin{tikzpicture}
-% 		\node[at=(current page.south east),anchor=south east,inner sep=0pt] {
-% 			\begin{beamercolorbox}[wd=12cm, left]{frametitle}
-% 			\insertframetitle
-% 			\end{beamercolorbox}
-% 		};
-% 	\end{tikzpicture}
-% }
+% Section frame
+\setbeamertemplate{section page}
+{
+	\begin{tikzpicture}[remember picture, overlay]
+	\node[anchor=north west, xshift=-2.75cm, yshift=-0.35cm] at (current page.north east)
+	{
+		\includegraphics[width=0.2\linewidth, height=\paperheight, keepaspectratio]{TIB_Wort_Bildmarke_RGB}
+	};
+	\end{tikzpicture}
 
+    \begin{centering}
+    \begin{beamercolorbox}[sep=12pt,center]{part title}
+    \usebeamerfont{section title}\insertsection\par
+    \end{beamercolorbox}
+    \end{centering}
+}
 
-% \newenvironment{xplainframe}{%
-% 	\bgroup%
-% 	\setbeamercolor{frametitle}{fg=KlopeCedar}
-% 	\setbeamertemplate{background}{%
-% 		\begin{tikzpicture}%
-% 		\useasboundingbox (0,0) rectangle (\the\paperwidth,\the\paperheight);%
-% 		\fill[color=KlopeSand] rectangle (\the\paperwidth,\the\paperheight);%
-% 		\end{tikzpicture}%
-% 	}%
-% 	\begin{frame}[plain]%
-% }{	\end{frame}%
-% 	\egroup%
-% }
-\newcommand{\sectionframe}{{
-	\setbeamertemplate{background}{
-		  \begin{tikzpicture}
-		  \useasboundingbox (0,0) rectangle (\the\paperwidth,\the\paperheight);
-		  \drawupperrectangles
-		  \drawlowerrectangles
-		  \end{tikzpicture}
-	}
-	\setbeamertemplate{headline}{}
-	\frame{\sectionpage}
-}}
+% Footer
+\addtobeamertemplate{footnote}{}{\vspace{2ex}}
+
+\newcommand{\TIB@footline}{\insertsectionnumber.~\insertsection \hfill \insertframenumber/\inserttotalframenumber}
+
+\defbeamertemplate*{footline}{TIB}
+{
+	\begin{beamercolorbox}[leftskip=15pt,rightskip=15pt,ht=2.5ex,dp=1ex]{footline}
+  	\usebeamerfont{footline}\TIB@footline\par
+  	\vspace{2ex}
+  	\end{beamercolorbox}
+}
