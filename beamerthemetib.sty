@@ -50,19 +50,41 @@
 \setlength{\TIBInnerSpace}{0.6\paperwidth-\TIBTitleBorder}
 
 
-\setbeamertemplate{title page}{
+\newcommand{\TIBShowBackground}{
+	\begin{tikzpicture}[remember picture,overlay]
+		\node[at=(current page.south east),anchor=south east,inner sep=0pt] {
+			\includegraphics[height=\paperheight,width=\paperwidth]{tib/background}};
+	\end{tikzpicture}
+}
+
+\newcommand{\TIBShowOverlay}{
 	\begin{tikzpicture}[remember picture,overlay]
 		\node[at=(current page.north west),anchor=north west, xshift=1.0cm, yshift=-1.0cm] (overlay) {
 			\includegraphics[height=0.78\paperheight,width=0.6\paperwidth]{tib/overlay}
 		};
 		\node[at=(overlay.north east),anchor=north east, xshift=-\TIBTitleBorder, yshift=-\TIBTitleBorder] (logo) {
-			\includegraphics[width=0.2\paperwidth]{tib/logo.pdf}
+			\includegraphics[height=0.15\paperheight]{tib/logo.pdf}
 		};
 		\node[at=(overlay.north west),anchor=north west, xshift=\TIBTitleBorder, yshift=-\TIBTitleBorder] {
-			\includegraphics[width=0.2\paperwidth]{tib/firm.pdf}
+			\includegraphics[height=0.08\paperheight]{tib/firm.pdf}
 		};
 
-		\node[at=(overlay.south west),anchor=south west, xshift=\TIBTitleBorder, yshift=\TIBTitleBorder](event){
+		\node[at=(overlay.north west),
+					anchor=north west,
+					yshift=-\TIBTitleBorder-0.15\paperheight,
+					minimum height=0.78\paperheight-\TIBTitleBorder-0.15\paperheight,
+					minimum width =\TIBInnerSpace] (area) {};
+
+	\end{tikzpicture}
+}
+
+\setbeamertemplate{title page}{
+	\TIBShowBackground
+	\TIBShowOverlay
+
+	\begin{tikzpicture}[remember picture,overlay]
+
+		\node[at=(area.south west),anchor=south west, xshift=\TIBTitleBorder, yshift=\TIBTitleBorder](event){
 			\begin{beamercolorbox}{headline}
 				\usebeamerfont{headline}
 			\end{beamercolorbox}
@@ -77,7 +99,7 @@
 				\usebeamerfont{normal text}\insertauthor
 			\end{beamercolorbox}
 		};
-		\node[at=(author.north west),anchor=south west, yshift=\TIBTitleBorder](title){
+		\node[at=(area.north west),anchor=north west, xshift=\TIBTitleBorder, yshift=-\TIBTitleBorder](title){
 			\begin{beamercolorbox}[wd=\TIBInnerSpace]{title}
 				\usebeamerfont{title}\inserttitle
 			\end{beamercolorbox}
@@ -112,17 +134,17 @@
 
 % \setbeamertemplate{section in head/foot shaded}{\color{KlopeCedar}\insertsectionhead}
 
-\setbeamertemplate{background}{
-  \begin{tikzpicture}
-	  \useasboundingbox (0,0) rectangle (\the\paperwidth,\the\paperheight);
-  	\ifnum\thepage>1\relax%
-
-  	\else % Title page
-      \node[at=(current page.south east),anchor=south east,inner sep=0pt] {
-        \includegraphics[height=\paperheight,width=\paperwidth]{tib/background}};
-  	\fi
-	\end{tikzpicture}
-}
+% \setbeamertemplate{background}{
+%   \begin{tikzpicture}
+% 	  \useasboundingbox (0,0) rectangle (\the\paperwidth,\the\paperheight);
+%   	\ifnum\thepage>1\relax%
+%
+%   	\else % Title page
+%       \node[at=(current page.south east),anchor=south east,inner sep=0pt] {
+%         \includegraphics[height=\paperheight,width=\paperwidth]{tib/background}};
+%   	\fi
+% 	\end{tikzpicture}
+% }
 
 % Frame title continuations
 \defbeamertemplate*{frametitle continuation}{TIB}{\insertcontinuationcountroman}
@@ -130,24 +152,29 @@
 % Section frame
 \setbeamertemplate{section page}
 {
-	\begin{tikzpicture}[remember picture, overlay]
-	\node[anchor=north west, xshift=-2.75cm, yshift=-0.35cm] at (current page.north east)
-	{
-		\includegraphics[width=0.2\linewidth, height=\paperheight, keepaspectratio]{TIB_Wort_Bildmarke_RGB}
-	};
-	\end{tikzpicture}
 
-    \begin{centering}
-    \begin{beamercolorbox}[sep=12pt,center]{part title}
-    \usebeamerfont{section title}\insertsection\par
-    \end{beamercolorbox}
-    \end{centering}
+	\TIBShowBackground
+	\TIBShowOverlay
+
+	\begin{tikzpicture}[remember picture,overlay]
+
+	\node[at=(area.north west),anchor=north west, xshift=\TIBTitleBorder, yshift=-\TIBTitleBorder](title){
+		\begin{beamercolorbox}[wd=\TIBInnerSpace]{title}
+			\usebeamerfont{section title}\insertsection
+		\end{beamercolorbox}
+	};
+
+
+	\end{tikzpicture}
 }
 
 % Footer
 \addtobeamertemplate{footnote}{}{\vspace{2ex}}
 
-\newcommand{\TIB@footline}{\insertsectionnumber.~\insertsection \hfill \insertframenumber/\inserttotalframenumber}
+\newcommand{\TIB@footline}{\hfill \insertframenumber/\inserttotalframenumber}
+
+% TODO
+%\newcommand{\TIB@footline}{\insertsectionnumber.~\insertsection \hfill \insertframenumber/\inserttotalframenumber}
 
 \defbeamertemplate*{footline}{TIB}
 {
@@ -155,4 +182,24 @@
   	\usebeamerfont{footline}\TIB@footline\par
   	\vspace{2ex}
   	\end{beamercolorbox}
+}
+
+\AtBeginSection{
+  \ifbeamer@inframe
+    \sectionpage
+  \else
+    \frame[plain,c,noframenumbering]{\sectionpage}
+  \fi
+}
+
+
+\def\maketitle{%
+  \ifbeamer@inframe
+    \titlepage
+  \else
+    \frame[plain,noframenumbering]{\titlepage}
+  \fi
+}
+\def\titlepage{%
+  \usebeamertemplate{title page}
 }
