@@ -1,7 +1,8 @@
 \pdfminorversion=4
 \documentclass[utf8]{beamer}
 \usepackage{etex}
-\usepackage[ngerman]{babel}
+%\usepackage[ngerman]{babel}
+\usepackage[english]{babel}
 \usepackage[utf8]{inputenc}
 \usepackage{amsfonts}
 \usepackage{amssymb}
@@ -10,6 +11,10 @@
 \usepackage{mathdesign}
 \usepackage{tabularx}
 \usepackage{tikz}
+
+% TODO remove me
+\usepackage{blindtext}
+
 
 \usepackage[locale=DE]{siunitx}
 \sisetup{
@@ -24,9 +29,10 @@
 
 \usetikzlibrary{arrows,snakes,backgrounds,patterns,matrix,shapes,fit,calc,shadows,plotmarks}
 
-\title{Kolloquium zur Masterarbeit}
-\subtitle{Entwicklung eines Web-basierten Verfahrens zum Lernen von visuellen Konzepten}
-\author[M. Springstein]{Matthias Springstein}
+%\title{Dienstagnachmittags-Kaffee}
+%\subtitle{Web-überwachtes Lernen von visuellen Konzepten zur automatischen Annotation von Bildern}
+\title{Title}
+\author{Author}
 \date{\today}
 
 %\usetheme{Berkeley}
@@ -36,223 +42,45 @@
 \maketitle
 
 \begin{frame}
-    \frametitle{Gliederung}
+    \frametitle{Outline}
     \tableofcontents
 \end{frame}
 
-\section{Motivation und Zielsetzung}
-\begin{frame}
-    \frametitle{Gliederung}
-    \tableofcontents[currentsection]
-\end{frame}
-
-\subsection{}
-\begin{frame}
-    \frametitle{Motivation}
-    \begin{itemize}
-        \item Verringerung des menschlichen Aufwands für die Erstellung eines Trainingsdatensatzes
-        \item Nutzung von Webinhalten zur Auswahl von negativen und positiven Trainingsbildern
-        \item Automatische Erstellung von Klassifikatoren für die Konzeptdetektion
-        \item Verwendung von aktuellen Verfahren zur Klassifikation von Bildern
-    \end{itemize}
-\end{frame}
+\section{Section 1}
 
 \begin{frame}
-    \frametitle{Zielsetzung}
-    \begin{itemize}
-        \item Entwicklung eines System zum Finden von geeigneten Trainingsbeispielen aus dem Internet
-        \item Nutzung von Deep Learning Verfahren
-        \item Validierung des Systems und des erzeugten Klassifikators
-    \end{itemize}
-\end{frame}
-
-\section{Stand der Technik}
-
-\begin{frame}
-    \frametitle{Gliederung}
-    \tableofcontents[currentsection]
-\end{frame}
-
-\subsection{Convolutional Neural Network}
-\begin{frame}
-    \frametitle{Convolutional Neural Network}
-    \begin{itemize}
-        \item Stand der Technik in mehreren Gebieten des maschinellen Lernens
-        \item Nutzung von GPU zum Training des Netzwerkes
-        \item Automatisches Erlernen geeigneter Merkmalsextraktoren
-    \end{itemize}
-    \begin{figure}
-
-    \end{figure}
-\end{frame}
-
-\begin{frame}
-    \frametitle{Convolutional Neural Network}
-    \begin{figure}
-
-    \end{figure}
-    \footnotetext{\tiny ICML 2013 tutorial on Deep Learning}
-\end{frame}
-
-\section[Verfahrensbeschreibung]{Vorstellung des Verfahrens}
-
-\begin{frame}
-    \frametitle{Gliederung}
-    \tableofcontents[currentsection]
-\end{frame}
-
-\subsection{Konzept}
-\begin{frame}
-    \frametitle{Konzept}
-    \begin{columns}[c]
-        \column[c]{0.8\linewidth}
-            \begin{itemize}
-                \item Download geeigneter Trainigsbildern aus dem Internet
-                \item Filterung der Eingangsbilder und Entfernen von Spam
-                \item Training eines \emph{Convolutional Neural Network} mit den gefundenen Beispielen
-            \end{itemize}
-        \column{0.2\linewidth}
-        \begin{figure}
-
-        \end{figure}
-    \end{columns}
-\end{frame}
-
-\subsection{Verarbeitungsschritte}
-% \begin{frame}
-%   \frametitle{Textueller Filter}
-%   \begin{itemize}
-%       \item Erzeugen eines Merkmalsvektors, unter Einsatz des Tf-idf-Maßes
-%       \item Clusterung der Kandidaten anhand der extrahierten Merkmalsvektoren
-%       \item Entfernung aller Cluster mit wenigen Elementen und einem geringen Silhouettenkoeffizient
-%       \item Ranking der verbleibenden Cluster, anhand des Abstandes zu einem erstellten Referenzvektor
-%   \end{itemize}
-% \end{frame}
-
-
-\begin{frame}
-    \frametitle{Visueller Filter}
-            \begin{itemize}
-                \item Nutzung von \emph{Convolutional Neural Network} zur Merkmalsextraktion
-                \item Clusterung der Kandidaten anhand der extrahierten Merkmalsvektoren
-                \item Entfernung aller Cluster mit wenigen Elementen und einem geringen Silhouettenkoeffizient
-                \item Ranking der verbleibenden Cluster, mithilfe der Distanz der Elemente zum Clusterzentrum
-            \end{itemize}
-\end{frame}
-
-\begin{frame}
-    \frametitle{Visueller Filter}
-    \begin{figure}
-        \caption{Zwei Cluster des visuellen Filters}
-    \end{figure}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Training des neuronalen Netzes}
-  \begin{itemize}
-    \item Anzahl der Neuronen in der Ausgangsschicht wird auf die Anzahl der gesuchten Konzepte gesetzt
-    \item Training mit dem erstellten Datensatz und dem stochastischen Gradientenverfahren
-%    \item Untersuchung verschiedener Netztopologien und Gewichtsinitalisierungen
-  \end{itemize}
-  \begin{figure}
-  \end{figure}
-\end{frame}
-
-\section{Ergebnisse}
-
-\begin{frame}
-    \frametitle{Gliederung}
-    \tableofcontents[currentsection]
-\end{frame}
-
-\subsection{Testdatensatz}
-
-\begin{frame}
-    \frametitle{Pascal VOC 2012 Datensatz}
-    \begin{figure}
-        \begin{itemize}
-          \item Beinhaltet \num{17125} Trainings- und Validierungsbilder für den Wettbewerb
-          \item Nutzung des Validierungsdatensatz der Klassifikationsaufgabe zum Test des Systems
-          \item Entfernung aller Bilder die im Trainingsdatensatz und im Validierungsdatensatz enthalten sind
-        \end{itemize}
-
-    \end{figure}
+    \frametitle{Frametitle}
+    \blinditemize
 \end{frame}
 
 
-\subsection{Experimentelle Ergebnisse}
+\section{Section 2}
 
 \begin{frame}
-    \frametitle{Validierung der Spam-Detektion}
-    \begin{figure}
-
-    \end{figure}
+    \frametitle{Frametitle}
+    \blinditemize
 \end{frame}
+
+
+\subsection{Section 2}
 
 \begin{frame}
-    \frametitle{Test des inkrementellen Lernansatzes}
-    \begin{figure}
-
-    \end{figure}
+    \frametitle{Frametitle}
+    \blinditemize
 \end{frame}
+
+
+\subsection{Section 2}
 
 \begin{frame}
-    \frametitle{Validierung der Nutzung von vortrainierten neuronalen Netzen}
-    \begin{figure}
-
-    \end{figure}
+    \frametitle{Frametitle}
+    \blinditemize
 \end{frame}
-
-\section[Abschluss]{Zusammenfassung und Ausblick}
-
-\begin{frame}
-    \frametitle{Gliederung}
-    \tableofcontents[currentsection]
-\end{frame}
-
-\subsection{}
-
-\begin{frame}
-    \frametitle{Zusammenfassung}
-    \begin{center}
-        \begin{itemize}
-          \item Das System ist in der Lage Bilder herunterzuladen, zu Filtern und ein Klassifikator zu trainieren
-          \item Das Filtersystem erhöht die Leistungsfähigkeit des Systems
-          \item Durch das Hinzufügen von Trainingsbeispielen erhöht sich die Genauigkeit der einzelnen Klassen
-          \item Der Einsatz von vortrainierte Netzen reduziert die Trainingszeit und reduziert den Fehler auf dem Datensatz
-        \end{itemize}
-    \end{center}
-\end{frame}
-
-\begin{frame}
-    \frametitle{Ausblick}
-    \begin{center}
-        \begin{itemize}
-          \item Erweiterung des Systems zur Lokalisierung des gesuchten Objektes
-          \item Hinzufügen von Quellen, wie Google Bildersuche
-          \item Verbesserung des Filtersystems, zum Beispiel durch den Einsatz andere Clusterverfahren
-          \item Beschleunigung des Lernverfahrens durch neue Verfahren, wie Batch Normalization
-        \end{itemize}
-    \end{center}
-\end{frame}
-
 
 \begin{frame}
     \begin{center}
-        \Huge Vielen Dank.
+        \Huge Thank you for your attention.
     \end{center}
-\end{frame}
-
-\appendix
-
-\begin{frame}
-  \frametitle{Textueller Filter}
-  \begin{itemize}
-      \item Erzeugen eines Merkmalsvektors, unter Einsatz des Tf-idf-Maßes
-      \item Clusterung der Kandidaten anhand der extrahierten Merkmalsvektoren
-      \item Entfernung aller Cluster mit wenigen Elementen und einem geringen Silhouettenkoeffizient
-      \item Ranking der verbleibenden Cluster, anhand des Abstandes zu einem erstellten Referenzvektor
-  \end{itemize}
 \end{frame}
 
 \end{document}
