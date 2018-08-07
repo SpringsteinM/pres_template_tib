@@ -1,6 +1,6 @@
 \RequirePackage{tikz, xcolor, textpos, calc}
 
-\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{shapes.geometric,matrix}
 
 
 % Colour settings
@@ -29,7 +29,18 @@
 \setbeamerfont*{author}{size=\normalsize, series=\bfseries}
 \setbeamerfont*{frametitle}{size=\large, series=\bfseries}
 \setbeamerfont*{subtitle}{size=\Large, series=\bfseries}
-\setbeamerfont*{title}{size=\Large, series=\bfseries}
+\setbeamerfont*{title}{size=\large, series=\bfseries}
+\setbeamerfont*{author}{size=\scriptsize}
+\setbeamerfont*{institute}{size=\tiny}
+\setbeamerfont*{date}{size=\tiny}
+
+% boxes
+\setbeamerfont{block title}{size=\normalsize}
+\setbeamerfont{block body}{size=\normalsize}
+
+%\setbeamertemplate{blocks}[rounded][shadow=true]
+\setbeamercolor{block body}{bg=TIB_gray!10!white}
+\setbeamercolor{block title}{bg=TIB_gray, fg=white}
 
 % Inner theme
 
@@ -49,88 +60,105 @@
 \setlength{\TIBLogoBorder}{0.3cm}
 
 \newlength{\TIBInnerSpace}
-\setlength{\TIBInnerSpace}{0.6\paperwidth-\TIBTitleBorder-\TIBTitleBorder}
+\setlength{\TIBInnerSpace}{0.88\paperwidth-\TIBTitleBorder-\TIBTitleBorder}
 
 
 \newcommand{\TIBShowBackground}{
-	\begin{tikzpicture}[remember picture,overlay]
-		\node[at=(current page.south east),anchor=south east,inner sep=0pt] {
-			\includegraphics[height=\paperheight,width=\paperwidth]{tib/background}};
-	\end{tikzpicture}
+  \begin{tikzpicture}[remember picture,overlay]
+  \node[at=(current page.south east),anchor=south east,inner sep=0pt] {
+  \includegraphics[height=\paperheight,width=\paperwidth]{tib/background}};
+  \end{tikzpicture}
 }
 
 \newcommand{\TIBShowOverlay}{
-	\begin{tikzpicture}[remember picture,overlay]
-		\node[at=(current page.north west),anchor=north west, xshift=1.0cm, yshift=-1.0cm] (overlay) {
-			\includegraphics[height=0.78\paperheight,width=0.6\paperwidth]{tib/overlay}
-		};
-		\node[at=(overlay.north east),anchor=north east, xshift=-\TIBTitleBorder, yshift=-\TIBTitleBorder] (logo) {
-			\includegraphics[height=0.15\paperheight]{tib/logo.pdf}
-		};
-		\node[at=(overlay.north west),anchor=north west, xshift=\TIBTitleBorder, yshift=-\TIBTitleBorder] {
-			\includegraphics[height=0.08\paperheight]{tib/firm.pdf}
-		};
+  \begin{tikzpicture}[ampersand replacement=\&,remember picture,overlay]
+  \node[at=(current page.north west),anchor=north west, xshift=.06\paperwidth, yshift=-1.0cm, inner sep=0pt] (overlay) {
+  \includegraphics[height=0.78\paperheight,width=.88\paperwidth]{tib/overlay}
+  };
+  \node[at=(overlay.north east),anchor=north east, xshift=-\TIBTitleBorder, yshift=-\TIBTitleBorder] (logo) {
+  \includegraphics[height=0.15\paperheight]{tib/logo.pdf}
+  };
+  % \node[at=(overlay.south west),anchor=south west, xshift=\TIBTitleBorder, yshift=+\TIBTitleBorder] (eah_logo) {
+  % 	\includegraphics[height=0.10\paperheight]{other_logos/marburg_logo.pdf}
+  % };
+  % \node[at=(overlay.south east),anchor=south east, xshift=-\TIBTitleBorder, yshift=\TIBTitleBorder] (l3s_logo) {
+  % 	\includegraphics[height=0.10\paperheight]{other_logos/l3s_logo.pdf}
+  % };
+  % \node[at=(overlay.south),anchor=south, yshift=\TIBTitleBorder] (ecir_logo) {
+  % 	\includegraphics[height=0.07\paperheight]{other_logos/poznan_logo.jpg}%
+  % 	\includegraphics[height=0.07\paperheight]{other_logos/paderborn_logo.png}
+  % };
 
-		\node[at=(overlay.north west),
-					anchor=north west,
-					yshift=-\TIBTitleBorder-0.15\paperheight,
-					minimum height=0.78\paperheight-\TIBTitleBorder-0.15\paperheight,
-					minimum width =\TIBInnerSpace] (area) {};
+  \node[at=(overlay.north west),anchor=north west, xshift=\TIBTitleBorder, yshift=-\TIBTitleBorder] {
+  \includegraphics[height=0.08\paperheight]{tib/firm_en.pdf}
+  };
 
-	\end{tikzpicture}
+  \node[at=(overlay.north west),
+  anchor=north west,
+  yshift=-\TIBTitleBorder-0.15\paperheight,
+  minimum height=0.78\paperheight-\TIBTitleBorder-0.15\paperheight,
+  minimum width =\TIBInnerSpace] (area) {};
+
+  \end{tikzpicture}
 }
 
 \setbeamertemplate{title page}{
-	\TIBShowBackground
-	\TIBShowOverlay
+  \TIBShowBackground
+  \TIBShowOverlay
 
-	\begin{tikzpicture}[remember picture,overlay]
+  \begin{tikzpicture}[remember picture,overlay]
 
-		\node[at=(area.south west),anchor=south west, xshift=\TIBTitleBorder, yshift=\TIBTitleBorder](event){
-			\begin{beamercolorbox}{headline}
-				\usebeamerfont{headline}
-			\end{beamercolorbox}
-		};
-		\node[at=(event.north west),anchor=south west](date){
-			\begin{beamercolorbox}[wd=\TIBInnerSpace]{normal text}
-				\usebeamerfont{normal text}\insertshortdate
-			\end{beamercolorbox}
-		};
-		\node[at=(date.north west),anchor=south west](author){
-			\begin{beamercolorbox}[wd=\TIBInnerSpace]{normal text}
-				\usebeamerfont{normal text}\insertauthor
-			\end{beamercolorbox}
-		};
-		\node[at=(area.north west),anchor=north west, xshift=\TIBTitleBorder, yshift=-\TIBTitleBorder](title){
-			\begin{beamercolorbox}[wd=\TIBInnerSpace]{title}
-				\usebeamerfont{title}\inserttitle
-			\end{beamercolorbox}
-		};
+  \node[at=(area.south west),anchor=south west, xshift=\TIBTitleBorder, yshift=0.10\paperheight+\TIBTitleBorder](event){
+  \begin{beamercolorbox}[wd=\TIBInnerSpace]{headline}
+  \usebeamerfont{institute}\insertinstitute
+  \end{beamercolorbox}
+  };
+  % \node[at=(event.north west),anchor=south west](date){
+  % 	\begin{beamercolorbox}[wd=\TIBInnerSpace]{normal text}
+  % 		\usebeamerfont{date}\insertshortdate
+  % 	\end{beamercolorbox}
+  % };
+  % \node[at=(date.north west),anchor=south west](affi){
+  % 	\begin{beamercolorbox}[wd=\TIBInnerSpace]{normal text}
+  % 		\usebeamerfont{institute}\insertinstitute
+  % 	\end{beamercolorbox}
+  % };
+  \node[at=(event.north west),anchor=south west](author){
+  \begin{beamercolorbox}[wd=\TIBInnerSpace]{normal text}
+  \usebeamerfont{author}\insertauthor
+  \end{beamercolorbox}
+  };
+  \node[at=(area.north west),anchor=north west, xshift=\TIBTitleBorder, yshift=-\TIBTitleBorder](title){
+  \begin{beamercolorbox}[wd=\TIBInnerSpace]{title}
+  \usebeamerfont{title}\inserttitle
+  \end{beamercolorbox}
+  };
 
-	\end{tikzpicture}
+  \end{tikzpicture}
 }
 
 % Frame title
 \defbeamertemplate*{frametitle}{TIB}
 {
-	\usebeamerfont*{frametitle}
-	\usebeamercolor[fg]{frametitle}
+  \usebeamerfont*{frametitle}
+  \usebeamercolor[fg]{frametitle}
 
-	\begin{tikzpicture}[remember picture,overlay]
-	\node[anchor=north west, xshift=\TIBTitleBorder, yshift=-\TIBTitleBorder] at (current page.north west)
-	{
-		\begin{beamercolorbox}[wd=8cm]{}
-			\insertframetitle
-		\end{beamercolorbox}
-	};
-	\end{tikzpicture}
+  \begin{tikzpicture}[remember picture,overlay]
+  \node[anchor=north west, xshift=\TIBTitleBorder, yshift=-\TIBTitleBorder] at (current page.north west)
+  {
+  \begin{beamercolorbox}[wd=8cm]{}
+  \insertframetitle
+  \end{beamercolorbox}
+  };
+  \end{tikzpicture}
 
-	\begin{tikzpicture}[remember picture, overlay]
-	\node[anchor=north east, xshift=-\TIBLogoBorder, yshift=-\TIBLogoBorder] at (current page.north east)
-	{
-		\includegraphics[width=0.15\linewidth, height=\paperheight, keepaspectratio]{tib/logo.pdf}
-	};
-	\end{tikzpicture}
+  \begin{tikzpicture}[remember picture, overlay]
+  \node[anchor=north east, xshift=-\TIBLogoBorder, yshift=-\TIBLogoBorder] at (current page.north east)
+  {
+  \includegraphics[width=0.15\linewidth, height=\paperheight, keepaspectratio]{tib/logo.pdf}
+  };
+  \end{tikzpicture}
+  \vspace{10pt}
 }
 
 
@@ -155,19 +183,19 @@
 \setbeamertemplate{section page}
 {
 
-	\TIBShowBackground
-	\TIBShowOverlay
+  \TIBShowBackground
+  \TIBShowOverlay
 
-	\begin{tikzpicture}[remember picture,overlay]
+  \begin{tikzpicture}[remember picture,overlay]
 
-	\node[at=(area.north west),anchor=north west, xshift=\TIBTitleBorder, yshift=-\TIBTitleBorder](title){
-		\begin{beamercolorbox}[wd=\TIBInnerSpace]{title}
-			\usebeamerfont{section title}\insertsection
-		\end{beamercolorbox}
-	};
+  \node[at=(area.north west),anchor=north west, xshift=\TIBTitleBorder, yshift=-\TIBTitleBorder](title){
+  \begin{beamercolorbox}[wd=\TIBInnerSpace]{title}
+  \usebeamerfont{section title}\insertsection
+  \end{beamercolorbox}
+  };
 
 
-	\end{tikzpicture}
+  \end{tikzpicture}
 }
 
 % Footer
@@ -180,19 +208,19 @@
 
 \defbeamertemplate*{footline}{TIB}
 {
-	\begin{beamercolorbox}[leftskip=15pt,rightskip=15pt,ht=2.5ex,dp=1ex]{footline}
+  \begin{beamercolorbox}[leftskip=15pt,rightskip=15pt,ht=2.5ex,dp=1ex]{footline}
   	\usebeamerfont{footline}\TIB@footline\par
   	\vspace{2ex}
   	\end{beamercolorbox}
 }
 
-\AtBeginSection{
-  \ifbeamer@inframe
-    \sectionpage
-  \else
-    \frame[plain,c,noframenumbering]{\sectionpage}
-  \fi
-}
+% \AtBeginSection{
+%   \ifbeamer@inframe
+%     \sectionpage
+%   \else
+%     \frame[plain,c,noframenumbering]{\sectionpage}
+%   \fi
+% }
 
 
 \def\maketitle{%
